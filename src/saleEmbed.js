@@ -17,8 +17,8 @@ const shortenString = (
 
 async function saleEmbed(...sale) {
 const asset = sale[0]
-  console.log(asset)
-  console.log(sale)
+//   console.log(asset)
+//   console.log(sale)
 // console.log(`${asset?.transaction?.timestamp}.000Z`)
 let d = new Date(`${asset?.transaction?.timestamp}.000Z`);
 // console.log(d)
