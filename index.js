@@ -112,9 +112,11 @@ const handleKandySales = async () => {
 
 const sendSaleInfo = async (num,events) => {
     const channel = client.channels.cache.find(channel =>     channel.id === channelId)
+    let j = events?.length-1
     for(let i = 0;i<events?.length;i++) {
-    let sale = await saleEmbed(events[i])
+    let sale = await saleEmbed(events[j])
     // console.log(sale)
+    j--;
     if(num == 2) {
       await channel.send({embeds:[sale]})
       await tpfSales.send({embeds:[sale]})
