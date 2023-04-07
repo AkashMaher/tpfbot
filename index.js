@@ -60,7 +60,7 @@ client.on(Events.ClientReady, () => {
 const handleEvents = async () => {
 	let getTime = await getLastSaleTime()
     // getTime = 0
-//   console.log(getTime)
+  console.log(getTime)
   const options = {
   method: 'GET',
   url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address}&event_type=successful&occurred_after=${getTime?getTime:0}`,
@@ -84,7 +84,7 @@ const handleEvents = async () => {
 const sendSaleInfo = async (events) => {
     const channel = client.channels.cache.find(channel =>     channel.id === channelId)
     for(let i = 0;i<events?.length;i++) {
-    let sale = await saleEmbed(events[i])
+    let sale = await saleEmbed(events[i],contract_address)
     // console.log(sale)
     await channel.send({embeds:[sale]})
     await tpfSales.send({embeds:[sale]})
