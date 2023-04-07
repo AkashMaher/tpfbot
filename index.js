@@ -60,7 +60,7 @@ client.on(Events.ClientReady, () => {
 const handleEvents = async () => {
 	let getTime = await getLastSaleTime()
     // getTime = 0
-  // console.log(getTime)
+//   console.log(getTime)
   const options = {
   method: 'GET',
   url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address}&event_type=successful&occurred_after=${getTime?getTime:0}`,

@@ -17,7 +17,7 @@ const shortenString = (
 
 async function saleEmbed(...sale) {
 const asset = sale[0]
-// console.log(asset)
+//   console.log(asset)
 // console.log(`${asset?.transaction?.timestamp}.000Z`)
 let d = new Date(`${asset?.transaction?.timestamp}.000Z`);
 // console.log(d)
@@ -25,7 +25,7 @@ let d = new Date(`${asset?.transaction?.timestamp}.000Z`);
   const dataEmbed = {
 	color: 0x4df85f,
 	title: '',
-	description: `[**${asset?.asset?.name} Sold!**](https://opensea.io/assets/ethereum/${asset?.asset_contract?.address}/${asset?.asset?.token_id})\n**Price: ${(parseInt(asset?.total_price)/(1000000000000000000)).toFixed(4)} ${asset?.payment_token?.symbol}** | $${((parseInt(asset?.total_price)/(1000000000000000000))*(parseInt(asset?.payment_token?.usd_price))).toFixed(2)} USD`,
+	description: `[**${asset?.asset?.name} Sold!**](https://opensea.io/assets/ethereum/0xc379e535caff250a01caa6c3724ed1359fe5c29b/${asset?.asset?.token_id})\n**Price: ${(parseInt(asset?.total_price)/(1000000000000000000)).toFixed(4)} ${asset?.payment_token?.symbol}** | $${((parseInt(asset?.total_price)/(1000000000000000000))*(parseInt(asset?.payment_token?.usd_price))).toFixed(2)} USD`,
 	thumbnail: {
 		url: asset?.asset?.image_url,
 	},
