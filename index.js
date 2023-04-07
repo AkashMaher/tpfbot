@@ -10,7 +10,7 @@ const axios = require('axios');
 const token = process.env['token']
 const oskey = process.env['OSKEY']
 const tpf = process.env['tpfwebhook']
-const {channelId} = require('./config.json')
+const {channelId,contract_address} = require('./config.json')
 
 const {setLastSaleTime, getLastSaleTime} = require("./src/setTime")
 const {saleEmbed} = require('./src/saleEmbed')
@@ -63,7 +63,7 @@ const handleEvents = async () => {
 //   console.log(getTime)
   const options = {
   method: 'GET',
-  url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=0xc379e535caff250a01caa6c3724ed1359fe5c29b&event_type=successful&occurred_after=${getTime?getTime:0}`,
+  url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address}&event_type=successful&occurred_after=${getTime?getTime:0}`,
   headers: {accept: 'application/json', 'X-API-KEY': oskey}
 };
 
