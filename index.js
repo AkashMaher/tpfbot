@@ -10,12 +10,15 @@ const axios = require('axios');
 const token = process.env['token']
 const oskey = process.env['OSKEY']
 const tpf = process.env['tpfwebhook']
+const kandy = process.env['kandyWebhook']
+
 const {channelId,contract_address} = require('./config.json')
 
 const {setLastSaleTime, getLastSaleTime} = require("./src/setTime")
 const {saleEmbed} = require('./src/saleEmbed')
 
 const tpfSales = new WebhookClient({url:tpf});
+const kandySales = new WebhookClient({url:kandy});
 
 client.commands = new Collection();
 const mongoose = require('mongoose')
@@ -51,6 +54,7 @@ client.on(Events.ClientReady, () => {
     setInterval(() => {
         setTimeout(async function () {
           handleEvents();
+          handleKandySales();
         }, 60000);
     }, 60000);
    /*client.user.setPresence({ activities: [{ name: `movinfrens.com` }], status: 'online' });*/
@@ -58,12 +62,12 @@ client.on(Events.ClientReady, () => {
 
 
 const handleEvents = async () => {
-	let getTime = await getLastSaleTime()
+	let getTime = await getLastSaleTime(2)
     // getTime = 0
 //   console.log(getTime)
   const options = {
   method: 'GET',
-  url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address}&event_type=successful&occurred_after=${getTime?getTime:0}`,
+  url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address.tpf}&event_type=successful&occurred_after=${getTime?getTime:0}`,
   headers: {accept: 'application/json', 'X-API-KEY': oskey}
 };
 
@@ -71,23 +75,52 @@ const handleEvents = async () => {
   .request(options)
   .then(function (response) {
     // console.log(response?.data?.asset_events[0]);
-    sendSaleInfo(response?.data?.asset_events);
+    sendSaleInfo(2,response?.data?.asset_events);
     let timestamp = Date.now();
     // console.log(parseInt(timestamp/1000))
-    setLastSaleTime(parseInt(timestamp/1000))
+    setLastSaleTime(2,parseInt(timestamp/1000))
   })
   .catch(function (error) {
     console.error(error);
   });
 }
 
-const sendSaleInfo = async (events) => {
+const handleKandySales = async () => {
+	let getTime = await getLastSaleTime(3)
+    // getTime = 0
+//   console.log(getTime)
+  const options = {
+  method: 'GET',
+  url: `https://api.opensea.io/api/v1/events?only_opensea=false&asset_contract_address=${contract_address.kandy}&event_type=successful&occurred_after=${getTime?getTime:0}`,
+  headers: {accept: 'application/json', 'X-API-KEY': oskey}
+};
+
+  axios
+  .request(options)
+  .then(function (response) {
+    // console.log(response?.data?.asset_events[0]);
+    sendSaleInfo(3,response?.data?.asset_events);
+    let timestamp = Date.now();
+    // console.log(parseInt(timestamp/1000))
+    setLastSaleTime(3,parseInt(timestamp/1000))
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+}
+
+const sendSaleInfo = async (num,events) => {
     const channel = client.channels.cache.find(channel =>     channel.id === channelId)
     for(let i = 0;i<events?.length;i++) {
     let sale = await saleEmbed(events[i])
     // console.log(sale)
-    await channel.send({embeds:[sale]})
-    await tpfSales.send({embeds:[sale]})
+    if(num == 2) {
+      await channel.send({embeds:[sale]})
+      await tpfSales.send({embeds:[sale]})
+    } if(num==3) {
+      await kandySales.send({embeds:[sale]})
+    }
+    
     }
 }
 

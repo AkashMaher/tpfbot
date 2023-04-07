@@ -1,4 +1,7 @@
 {
     "channelId":"1093645052984705064",
-    "contract_address":"0xc379e535caff250a01caa6c3724ed1359fe5c29b"
+    "contract_address":{
+        "tpf":"0xc379e535caff250a01caa6c3724ed1359fe5c29b",
+        "kandy":"0x0bcc509282a5fb44c32c59e2fa1ce613f51c86a2"
+    }
 }
