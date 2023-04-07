@@ -63,6 +63,7 @@ client.on(Events.ClientReady, () => {
 
 const handleEvents = async () => {
 	let getTime = await getLastSaleTime(2)
+  let timestamp = Date.now();
     // getTime = 0
 //   console.log(getTime)
   const options = {
@@ -76,7 +77,7 @@ const handleEvents = async () => {
   .then(function (response) {
     // console.log(response?.data?.asset_events[0]);
     sendSaleInfo(2,response?.data?.asset_events);
-    let timestamp = Date.now();
+    
     // console.log(parseInt(timestamp/1000))
     setLastSaleTime(2,parseInt(timestamp/1000))
   })
@@ -87,6 +88,7 @@ const handleEvents = async () => {
 
 const handleKandySales = async () => {
 	let getTime = await getLastSaleTime(3)
+  let timestamp = Date.now();
     // getTime = 0
 //   console.log(getTime)
   const options = {
@@ -100,7 +102,6 @@ const handleKandySales = async () => {
   .then(function (response) {
     // console.log(response?.data?.asset_events[0]);
     sendSaleInfo(3,response?.data?.asset_events);
-    let timestamp = Date.now();
     // console.log(parseInt(timestamp/1000))
     setLastSaleTime(3,parseInt(timestamp/1000))
   })
