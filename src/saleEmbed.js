@@ -33,17 +33,17 @@ let d = new Date(`${asset?.transaction?.timestamp}.000Z`);
 	fields: [
         {
 			name: `Buyer`,
-			value: `[${asset?.winner_account?.user?.username?asset?.winner_account?.user?.username:shortenString(asset?.winner_account?.address,4,4)}](https://opensea.io/${asset?.winner_account?.address})`,
+			value: `[${asset?.winner_account?.user?.username?asset?.winner_account?.user?.username:shortenString(asset?.winner_account?.address,4,2)}](https://opensea.io/${asset?.winner_account?.address})`,
 			inline: true
 		},
 		{
 			name: `Seller`,
-			value: `[${asset?.seller?.user?.username?asset?.seller?.user?.username:shortenString(asset?.seller?.address,4,4)}](https://opensea.io/${asset?.seller?.address})`,
+			value: `[${asset?.seller?.user?.username?asset?.seller?.user?.username:shortenString(asset?.seller?.address,4,2)}](https://opensea.io/${asset?.seller?.address})`,
 			inline: true
 		},
      {
 			name: `Txn`,
-			value: `[${shortenString(asset?.transaction?.transaction_hash,4,4)}](https://etherscan.io/tx/${asset?.transaction?.transaction_hash})`,
+			value: `[${shortenString(asset?.transaction?.transaction_hash,4,2)}](https://etherscan.io/tx/${asset?.transaction?.transaction_hash})`,
 			inline: true
 		}
 	],
